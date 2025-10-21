@@ -10,7 +10,7 @@
 
   <properties>
     <slf4j.version>2.0.5</slf4j.version>
-    <logback.version>1.4.12</logback.version>
+    <logback.version>1.5.19</logback.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <checkstyle.version>8.32</checkstyle.version>
     <lombok.version>1.18.24</lombok.version>

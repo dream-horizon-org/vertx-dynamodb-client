@@ -6,33 +6,34 @@
   <version>1.0.0-SNAPSHOT</version>
   <name>d11-vertx-dynamodb</name>
   <description>RxJava library for using dynamoDb client with vert.x</description>
-  <url>https://github.com/dream11/d11-vertx-dynamoDB.git</url>
+  <url>https://github.com/dream-horizon-org/vertx-dynamodb-client.git</url>
 
   <properties>
-    <slf4j.version>2.0.5</slf4j.version>
-    <logback.version>1.4.12</logback.version>
+    <slf4j.version>2.0.17</slf4j.version>
+    <logback.version>1.5.15</logback.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <checkstyle.version>8.32</checkstyle.version>
-    <lombok.version>1.18.24</lombok.version>
+    <checkstyle.version>10.20.2</checkstyle.version>
+    <lombok.version>1.18.38</lombok.version>
+    <aws.sdk.version>2.28.6</aws.sdk.version>
 
-    <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-    <maven.compile.version>11</maven.compile.version>
-    <maven.compile.source>11</maven.compile.source>
-    <maven.compile.target>11</maven.compile.target>
-    <maven.clean.plugin.version>3.1.0</maven.clean.plugin.version>
-    <maven.javadoc.plugin.version>3.2.0</maven.javadoc.plugin.version>
-    <maven.surefire.plugin.version>3.0.0-M5</maven.surefire.plugin.version>
-    <maven.failsafe.plugin.version>3.0.0-M5</maven.failsafe.plugin.version>
-    <maven.jacoco.plugin.version>0.8.8</maven.jacoco.plugin.version>
-    <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
+    <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
+    <maven.compile.version>21</maven.compile.version>
+    <maven.compile.source>21</maven.compile.source>
+    <maven.compile.target>21</maven.compile.target>
+    <maven.clean.plugin.version>3.4.0</maven.clean.plugin.version>
+    <maven.javadoc.plugin.version>3.12.0</maven.javadoc.plugin.version>
+    <maven.surefire.plugin.version>3.5.2</maven.surefire.plugin.version>
+    <maven.failsafe.plugin.version>3.5.2</maven.failsafe.plugin.version>
+    <maven.jacoco.plugin.version>0.8.12</maven.jacoco.plugin.version>
+    <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
     <maven.gpg.plugin.version>3.0.1</maven.gpg.plugin.version>
     <maven.nexus.plugin.version>1.6.13</maven.nexus.plugin.version>
-    <maven.checkstyle.plugin.version>3.2.0</maven.checkstyle.plugin.version>
-    <maven.swagger.plugin.jakarta.version>2.2.6</maven.swagger.plugin.jakarta.version>
-    <maven.dependency.plugin.version>3.1.2</maven.dependency.plugin.version>
-    <git-code-format-maven-plugin.version>2.7</git-code-format-maven-plugin.version>
+    <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
+    <maven.swagger.plugin.jakarta.version>2.2.26</maven.swagger.plugin.jakarta.version>
+    <maven.dependency.plugin.version>3.8.1</maven.dependency.plugin.version>
+    <git-code-format-maven-plugin.version>5.4</git-code-format-maven-plugin.version>
 
-    <vertx.version>3.9.16</vertx.version>
+    <vertx.version>4.5.16</vertx.version>
     <typesafe.config.version>1.4.3</typesafe.config.version>
     <vertx.completable.future.version>0.1.2</vertx.completable.future.version>
 
@@ -45,12 +46,18 @@
 <!--  Dependencies-->
   <dependencies>
 
-    <!-- https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava -->
-    <dependency>
-      <groupId>io.reactivex.rxjava2</groupId>
-      <artifactId>rxjava</artifactId>
-      <version>2.2.21</version>
-    </dependency>
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>io.reactivex.rxjava2</groupId>-->
+<!--      <artifactId>rxjava</artifactId>-->
+<!--      <version>2.2.21</version>-->
+<!--    </dependency>-->
+
+      <dependency>
+          <groupId>io.vertx</groupId>
+          <artifactId>vertx-rx-java3</artifactId>
+          <version>${vertx.version}</version>
+      </dependency>
 
     <!-- Vert.x Core -->
     <dependency>
@@ -59,12 +66,12 @@
       <version>${vertx.version}</version>
     </dependency>
 
-    <!-- Vert.x RxJava Bindings -->
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-rx-java2</artifactId>
-      <version>${vertx.version}</version>
-    </dependency>
+<!--    &lt;!&ndash; Vert.x RxJava Bindings &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>io.vertx</groupId>-->
+<!--      <artifactId>vertx-rx-java2</artifactId>-->
+<!--      <version>${vertx.version}</version>-->
+<!--    </dependency>-->
 
     <!-- Typesafe Config (HOCON) -->
     <dependency>
@@ -84,19 +91,19 @@
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>dynamodb-enhanced</artifactId>
-      <version>2.28.6</version>
+      <version>${aws.sdk.version}</version>
     </dependency>
     <!-- By adding the netty-nio-client dependency, NettyNioAsyncHttpClient will be added to the compile classpath so you can configure it. -->
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>aws-crt-client</artifactId>
-      <version>2.22.0</version>
+      <version>${aws.sdk.version}</version>
     </dependency>
 
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>bom</artifactId>
-      <version>2.22.0</version>
+      <version>${aws.sdk.version}</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>

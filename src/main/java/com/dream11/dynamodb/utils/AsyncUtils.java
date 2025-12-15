@@ -1,8 +1,8 @@
 package com.dream11.dynamodb.utils;
 
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 import io.vertx.core.Vertx;
-import io.vertx.reactivex.SingleHelper;
+import io.vertx.rxjava3.SingleHelper;
 import java.util.concurrent.CompletableFuture;
 import me.escoffier.vertx.completablefuture.VertxCompletableFuture;
 

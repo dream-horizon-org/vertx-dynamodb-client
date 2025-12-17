@@ -26,12 +26,13 @@
     <maven.failsafe.plugin.version>3.5.2</maven.failsafe.plugin.version>
     <maven.jacoco.plugin.version>0.8.12</maven.jacoco.plugin.version>
     <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
-    <maven.gpg.plugin.version>3.0.1</maven.gpg.plugin.version>
+    <maven.gpg.plugin.version>3.2.7</maven.gpg.plugin.version>
     <maven.nexus.plugin.version>1.6.13</maven.nexus.plugin.version>
     <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
     <maven.swagger.plugin.jakarta.version>2.2.26</maven.swagger.plugin.jakarta.version>
     <maven.dependency.plugin.version>3.8.1</maven.dependency.plugin.version>
-    <git-code-format-maven-plugin.version>5.4</git-code-format-maven-plugin.version>
+    <git-code-format-maven-plugin.version>2.7</git-code-format-maven-plugin.version>
+    <central.publishing.plugin.version>0.8.0</central.publishing.plugin.version>
 
     <vertx.version>4.5.16</vertx.version>
     <typesafe.config.version>1.4.3</typesafe.config.version>
@@ -46,13 +47,6 @@
 <!--  Dependencies-->
   <dependencies>
 
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>io.reactivex.rxjava2</groupId>-->
-<!--      <artifactId>rxjava</artifactId>-->
-<!--      <version>2.2.21</version>-->
-<!--    </dependency>-->
-
       <dependency>
           <groupId>io.vertx</groupId>
           <artifactId>vertx-rx-java3</artifactId>
@@ -65,13 +59,6 @@
       <artifactId>vertx-core</artifactId>
       <version>${vertx.version}</version>
     </dependency>
-
-<!--    &lt;!&ndash; Vert.x RxJava Bindings &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>io.vertx</groupId>-->
-<!--      <artifactId>vertx-rx-java2</artifactId>-->
-<!--      <version>${vertx.version}</version>-->
-<!--    </dependency>-->
 
     <!-- Typesafe Config (HOCON) -->
     <dependency>
@@ -136,16 +123,16 @@
   </dependencies>
 
   <scm>
-    <developerConnection>scm:git:https://github.com/dream11/d11-vertx-dynamoDB.git</developerConnection>
-    <connection>scm:git:https://github.com/dream11/d11-vertx-dynamoDB.git</connection>
-    <url>https://github.com/dream11/d11-vertx-dynamoDB.git</url>
+    <developerConnection>scm:git:https://github.com/dream-horizon-org/vertx-dynamodb-client.git</developerConnection>
+    <connection>scm:git:https://github.com/dream-horizon-org/vertx-dynamodb-client.git</connection>
+    <url>https://github.com/dream-horizon-org/vertx-dynamodb-client.git</url>
     <tag>HEAD</tag>
   </scm>
 
   <licenses>
     <license>
       <name>MIT License</name>
-      <url>https://github.com/dream11/d11-vertx-dynamoDB.git/raw/main/LICENSE</url>
+      <url>https://github.com/dream-horizon-org/vertx-dynamodb-client.git/raw/main/LICENSE</url>
     </license>
   </licenses>
 
@@ -163,17 +150,6 @@
       <organizationUrl>https://www.dream11.com/</organizationUrl>
     </developer>
   </developers>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
 
   <build>
     <plugins>
@@ -285,18 +261,6 @@
       </plugin>
 
       <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>${maven.nexus.plugin.version}</version>
-        <extensions>true</extensions>
-        <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
-        </configuration>
-      </plugin>
-
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven.checkstyle.plugin.version}</version>
@@ -343,66 +307,97 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>com.cosium.code</groupId>
-        <!--suppress MavenModelInspection -->
-        <artifactId>git-code-format-maven-plugin</artifactId>
-        <!--suppress MavenModelInspection -->
-        <version>${git-code-format-maven-plugin.version}</version>
-        <executions>
-          <!-- On commit, format the modified java files -->
-          <execution>
-            <id>install-formatter-hook</id>
-            <goals>
-              <goal>install-hooks</goal>
-            </goals>
-          </execution>
-          <!-- On Maven verify phase, fail if any file (including unmodified) is badly formatted -->
-          <execution>
-            <id>validate-code-format</id>
-            <goals>
-              <goal>validate-code-format</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <googleJavaFormatOptions>
-            <fixImportsOnly>false</fixImportsOnly>
-            <skipSortingImports>false</skipSortingImports>
-            <skipRemovingUnusedImports>false</skipRemovingUnusedImports>
-          </googleJavaFormatOptions>
-        </configuration>
-      </plugin>
+        <plugin>
+            <groupId>com.cosium.code</groupId>
+            <!--suppress MavenModelInspection -->
+            <artifactId>git-code-format-maven-plugin</artifactId>
+            <!--suppress MavenModelInspection -->
+            <version>${git-code-format-maven-plugin.version}</version>
+            <executions>
+                <!-- On commit, format the modified java files -->
+                <execution>
+                    <id>install-formatter-hook</id>
+                    <goals>
+                        <goal>install-hooks</goal>
+                    </goals>
+                </execution>
+                <!-- On Maven verify phase, fail if any file (including unmodified) is badly formatted -->
+                <execution>
+                    <id>validate-code-format</id>
+                    <goals>
+                        <goal>validate-code-format</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <googleJavaFormatOptions>
+                    <fixImportsOnly>false</fixImportsOnly>
+                    <skipSortingImports>false</skipSortingImports>
+                    <skipRemovingUnusedImports>false</skipRemovingUnusedImports>
+                </googleJavaFormatOptions>
+            </configuration>
+        </plugin>
+
+        <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>${central.publishing.plugin.version}</version>
+            <extensions>true</extensions>
+            <configuration>
+                <publishingServerId>central</publishingServerId>
+                <autoPublish>false</autoPublish>
+            </configuration>
+        </plugin>
+
     </plugins>
   </build>
 
-  <profiles>
-    <profile>
-      <id>release</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>${maven.gpg.plugin.version}</version>
-            <configuration>
-              <gpgArguments>
-                <arg>--pinentry-mode</arg>
-                <arg>loopback</arg>
-              </gpgArguments>
-            </configuration>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven.gpg.plugin.version}</version>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>central</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <name>Central Portal Snapshots</name>
+            <id>central-portal-snapshots</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
 </project>

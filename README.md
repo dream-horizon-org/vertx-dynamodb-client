@@ -6,7 +6,7 @@
     <dependency>
       <groupId>com.dream11</groupId>
       <artifactId>d11-vertx-dynamodb</artifactId>
-      <version>1.0.4</version>
+      <version>2.0.0</version>
     </dependency>
   ```
 

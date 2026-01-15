@@ -32,7 +32,7 @@
     <maven.dependency.plugin.version>3.1.2</maven.dependency.plugin.version>
     <git-code-format-maven-plugin.version>2.7</git-code-format-maven-plugin.version>
 
-    <vertx.version>3.9.16</vertx.version>
+    <vertx.version>4.5.24</vertx.version>
     <typesafe.config.version>1.4.3</typesafe.config.version>
     <vertx.completable.future.version>0.1.2</vertx.completable.future.version>
 
